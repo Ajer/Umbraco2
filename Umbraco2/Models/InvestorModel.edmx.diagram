@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cd1e460dfe6445be9c1a88f86eebe9f1" Name="Diagram1">
+        <EntityTypeShape EntityType="Umbraco2Model.z_InvestedHistory" Width="1.5" PointX="5.625" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Umbraco2Model.z_InvestorProject" Width="1.5" PointX="7.875" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Umbraco2Model.z_Person" Width="1.5" PointX="3.375" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Umbraco2Model.z_SolarPanelInfo" Width="1.5" PointX="5.625" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="Umbraco2Model.FK_z_InvestedHistory_z_InvestorProject" ManuallyRouted="false" />
+        <AssociationConnector Association="Umbraco2Model.FK_z_InvestedHistory_z_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="Umbraco2Model.z_SolarPanelInfo_InvestorProject" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Umbraco2Model.umbracoUser" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="Umbraco2Model.z_investeraDashboardPermission" Width="1.5" PointX="2.75" PointY="6.375" />
+        <AssociationConnector Association="Umbraco2Model.FK_investeraDashboardPermission_umbracoUser" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

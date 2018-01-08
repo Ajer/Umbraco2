@@ -1,0 +1,452 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Umbraco2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="umbracoUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userDisabled" Type="bit" Nullable="false" />
+          <Property Name="userNoConsole" Type="bit" Nullable="false" />
+          <Property Name="userName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="userLogin" Type="nvarchar" MaxLength="125" Nullable="false" />
+          <Property Name="userPassword" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="passwordConfig" Type="nvarchar" MaxLength="500" />
+          <Property Name="userEmail" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="userLanguage" Type="nvarchar" MaxLength="10" />
+          <Property Name="securityStampToken" Type="nvarchar" MaxLength="255" />
+          <Property Name="failedLoginAttempts" Type="int" />
+          <Property Name="lastLockoutDate" Type="datetime" />
+          <Property Name="lastPasswordChangeDate" Type="datetime" />
+          <Property Name="lastLoginDate" Type="datetime" />
+          <Property Name="emailConfirmedDate" Type="datetime" />
+          <Property Name="invitedDate" Type="datetime" />
+          <Property Name="createDate" Type="datetime" Nullable="false" />
+          <Property Name="updateDate" Type="datetime" Nullable="false" />
+          <Property Name="avatar" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="z_InvestedHistory">
+          <Key>
+            <PropertyRef Name="InvestedHistoryID" />
+          </Key>
+          <Property Name="InvestedHistoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvestorProjectID" Type="int" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="InvestDate" Type="smalldatetime" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="z_investeraDashboardPermission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="umbracoUserId" Type="int" Nullable="false" />
+          <Property Name="investeraDashBoardUser" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="z_InvestorProject">
+          <Key>
+            <PropertyRef Name="InvestorProjectID" />
+          </Key>
+          <Property Name="InvestorProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProjectAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProjectZip" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProjectCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProjectStart" Type="smalldatetime" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="50" />
+          <Property Name="BankNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="z_Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="Profession" Type="nvarchar" MaxLength="50" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="10" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="z_SolarPanelInfo">
+          <Key>
+            <PropertyRef Name="SolarPanelInfoID" />
+          </Key>
+          <Property Name="SolarPanelInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Power" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="z_SolarPanelInfo_InvestorProject">
+          <Key>
+            <PropertyRef Name="InvestorProjectID" />
+            <PropertyRef Name="SolarPanelInfoID" />
+          </Key>
+          <Property Name="InvestorProjectID" Type="int" Nullable="false" />
+          <Property Name="SolarPanelInfoID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_investeraDashboardPermission_umbracoUser">
+          <End Role="umbracoUser" Type="Self.umbracoUser" Multiplicity="1" />
+          <End Role="z_investeraDashboardPermission" Type="Self.z_investeraDashboardPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="umbracoUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="z_investeraDashboardPermission">
+              <PropertyRef Name="umbracoUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_z_InvestedHistory_z_InvestorProject">
+          <End Role="z_InvestorProject" Type="Self.z_InvestorProject" Multiplicity="1" />
+          <End Role="z_InvestedHistory" Type="Self.z_InvestedHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="z_InvestorProject">
+              <PropertyRef Name="InvestorProjectID" />
+            </Principal>
+            <Dependent Role="z_InvestedHistory">
+              <PropertyRef Name="InvestorProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_z_InvestedHistory_z_Person">
+          <End Role="z_Person" Type="Self.z_Person" Multiplicity="1" />
+          <End Role="z_InvestedHistory" Type="Self.z_InvestedHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="z_Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="z_InvestedHistory">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_z_SolarPanelInfo_InvestorProject_z_InvestorProject">
+          <End Role="z_InvestorProject" Type="Self.z_InvestorProject" Multiplicity="1" />
+          <End Role="z_SolarPanelInfo_InvestorProject" Type="Self.z_SolarPanelInfo_InvestorProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="z_InvestorProject">
+              <PropertyRef Name="InvestorProjectID" />
+            </Principal>
+            <Dependent Role="z_SolarPanelInfo_InvestorProject">
+              <PropertyRef Name="InvestorProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_z_SolarPanelInfo_InvestorProject_z_SolarPanelInfo">
+          <End Role="z_SolarPanelInfo" Type="Self.z_SolarPanelInfo" Multiplicity="1" />
+          <End Role="z_SolarPanelInfo_InvestorProject" Type="Self.z_SolarPanelInfo_InvestorProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="z_SolarPanelInfo">
+              <PropertyRef Name="SolarPanelInfoID" />
+            </Principal>
+            <Dependent Role="z_SolarPanelInfo_InvestorProject">
+              <PropertyRef Name="SolarPanelInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Umbraco2ModelStoreContainer">
+          <EntitySet Name="umbracoUser" EntityType="Self.umbracoUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="z_InvestedHistory" EntityType="Self.z_InvestedHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="z_investeraDashboardPermission" EntityType="Self.z_investeraDashboardPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="z_InvestorProject" EntityType="Self.z_InvestorProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="z_Person" EntityType="Self.z_Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="z_SolarPanelInfo" EntityType="Self.z_SolarPanelInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="z_SolarPanelInfo_InvestorProject" EntityType="Self.z_SolarPanelInfo_InvestorProject" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_investeraDashboardPermission_umbracoUser" Association="Self.FK_investeraDashboardPermission_umbracoUser">
+            <End Role="umbracoUser" EntitySet="umbracoUser" />
+            <End Role="z_investeraDashboardPermission" EntitySet="z_investeraDashboardPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_z_InvestedHistory_z_InvestorProject" Association="Self.FK_z_InvestedHistory_z_InvestorProject">
+            <End Role="z_InvestorProject" EntitySet="z_InvestorProject" />
+            <End Role="z_InvestedHistory" EntitySet="z_InvestedHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_z_InvestedHistory_z_Person" Association="Self.FK_z_InvestedHistory_z_Person">
+            <End Role="z_Person" EntitySet="z_Person" />
+            <End Role="z_InvestedHistory" EntitySet="z_InvestedHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_z_SolarPanelInfo_InvestorProject_z_InvestorProject" Association="Self.FK_z_SolarPanelInfo_InvestorProject_z_InvestorProject">
+            <End Role="z_InvestorProject" EntitySet="z_InvestorProject" />
+            <End Role="z_SolarPanelInfo_InvestorProject" EntitySet="z_SolarPanelInfo_InvestorProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_z_SolarPanelInfo_InvestorProject_z_SolarPanelInfo" Association="Self.FK_z_SolarPanelInfo_InvestorProject_z_SolarPanelInfo">
+            <End Role="z_SolarPanelInfo" EntitySet="z_SolarPanelInfo" />
+            <End Role="z_SolarPanelInfo_InvestorProject" EntitySet="z_SolarPanelInfo_InvestorProject" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Umbraco2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="z_InvestedHistory">
+          <Key>
+            <PropertyRef Name="InvestedHistoryID" />
+          </Key>
+          <Property Name="InvestedHistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvestorProjectID" Type="Int32" Nullable="false" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="InvestDate" Type="DateTime" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="z_InvestorProject" Relationship="Self.FK_z_InvestedHistory_z_InvestorProject" FromRole="z_InvestedHistory" ToRole="z_InvestorProject" />
+        </EntityType>
+        <EntityType Name="z_InvestorProject">
+          <Key>
+            <PropertyRef Name="InvestorProjectID" />
+          </Key>
+          <Property Name="InvestorProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectZip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectStart" Type="DateTime" Precision="0" />
+          <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BankNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="z_SolarPanelInfo" Relationship="Self.z_SolarPanelInfo_InvestorProject" FromRole="z_InvestorProject" ToRole="z_SolarPanelInfo" />
+        </EntityType>
+        <EntityType Name="z_Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Profession" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="z_InvestedHistory" Relationship="Self.FK_z_InvestedHistory_z_Person" FromRole="z_Person" ToRole="z_InvestedHistory" />
+        </EntityType>
+        <EntityType Name="z_SolarPanelInfo">
+          <Key>
+            <PropertyRef Name="SolarPanelInfoID" />
+          </Key>
+          <Property Name="SolarPanelInfoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Power" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_z_InvestedHistory_z_InvestorProject">
+          <End Role="z_InvestorProject" Type="Self.z_InvestorProject" Multiplicity="1" />
+          <End Role="z_InvestedHistory" Type="Self.z_InvestedHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="z_InvestorProject">
+              <PropertyRef Name="InvestorProjectID" />
+            </Principal>
+            <Dependent Role="z_InvestedHistory">
+              <PropertyRef Name="InvestorProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_z_InvestedHistory_z_Person">
+          <End Role="z_Person" Type="Self.z_Person" Multiplicity="1" />
+          <End Role="z_InvestedHistory" Type="Self.z_InvestedHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="z_Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="z_InvestedHistory">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="z_SolarPanelInfo_InvestorProject">
+          <End Role="z_InvestorProject" Type="Self.z_InvestorProject" Multiplicity="*" />
+          <End Role="z_SolarPanelInfo" Type="Self.z_SolarPanelInfo" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Umbraco2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="z_InvestedHistory" EntityType="Self.z_InvestedHistory" />
+          <EntitySet Name="z_InvestorProject" EntityType="Self.z_InvestorProject" />
+          <EntitySet Name="z_Person" EntityType="Self.z_Person" />
+          <EntitySet Name="z_SolarPanelInfo" EntityType="Self.z_SolarPanelInfo" />
+          <AssociationSet Name="FK_z_InvestedHistory_z_InvestorProject" Association="Self.FK_z_InvestedHistory_z_InvestorProject">
+            <End Role="z_InvestorProject" EntitySet="z_InvestorProject" />
+            <End Role="z_InvestedHistory" EntitySet="z_InvestedHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_z_InvestedHistory_z_Person" Association="Self.FK_z_InvestedHistory_z_Person">
+            <End Role="z_Person" EntitySet="z_Person" />
+            <End Role="z_InvestedHistory" EntitySet="z_InvestedHistory" />
+          </AssociationSet>
+          <AssociationSet Name="z_SolarPanelInfo_InvestorProject" Association="Self.z_SolarPanelInfo_InvestorProject">
+            <End Role="z_InvestorProject" EntitySet="z_InvestorProject" />
+            <End Role="z_SolarPanelInfo" EntitySet="z_SolarPanelInfo" />
+          </AssociationSet>
+          <EntitySet Name="umbracoUsers" EntityType="Umbraco2Model.umbracoUser" />
+          <EntitySet Name="z_investeraDashboardPermission" EntityType="Umbraco2Model.z_investeraDashboardPermission" />
+          <AssociationSet Name="FK_investeraDashboardPermission_umbracoUser" Association="Umbraco2Model.FK_investeraDashboardPermission_umbracoUser">
+            <End Role="umbracoUser" EntitySet="umbracoUsers" />
+            <End Role="z_investeraDashboardPermission" EntitySet="z_investeraDashboardPermission" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="umbracoUser">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userDisabled" Type="Boolean" Nullable="false" />
+          <Property Name="userNoConsole" Type="Boolean" Nullable="false" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="userLogin" Type="String" Nullable="false" MaxLength="125" FixedLength="false" Unicode="true" />
+          <Property Name="userPassword" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="passwordConfig" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="userEmail" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="userLanguage" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="securityStampToken" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="failedLoginAttempts" Type="Int32" />
+          <Property Name="lastLockoutDate" Type="DateTime" Precision="3" />
+          <Property Name="lastPasswordChangeDate" Type="DateTime" Precision="3" />
+          <Property Name="lastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="emailConfirmedDate" Type="DateTime" Precision="3" />
+          <Property Name="invitedDate" Type="DateTime" Precision="3" />
+          <Property Name="createDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="z_investeraDashboardPermission" Relationship="Umbraco2Model.FK_investeraDashboardPermission_umbracoUser" FromRole="umbracoUser" ToRole="z_investeraDashboardPermission" />
+        </EntityType>
+        <EntityType Name="z_investeraDashboardPermission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="umbracoUserId" Type="Int32" Nullable="false" />
+          <Property Name="investeraDashBoardUser" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="umbracoUser" Relationship="Umbraco2Model.FK_investeraDashboardPermission_umbracoUser" FromRole="z_investeraDashboardPermission" ToRole="umbracoUser" />
+        </EntityType>
+        <Association Name="FK_investeraDashboardPermission_umbracoUser">
+          <End Type="Umbraco2Model.umbracoUser" Role="umbracoUser" Multiplicity="1" />
+          <End Type="Umbraco2Model.z_investeraDashboardPermission" Role="z_investeraDashboardPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="umbracoUser">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="z_investeraDashboardPermission">
+              <PropertyRef Name="umbracoUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Umbraco2ModelStoreContainer" CdmEntityContainer="Umbraco2Entities">
+          <EntitySetMapping Name="z_InvestedHistory">
+            <EntityTypeMapping TypeName="Umbraco2Model.z_InvestedHistory">
+              <MappingFragment StoreEntitySet="z_InvestedHistory">
+                <ScalarProperty Name="InvestedHistoryID" ColumnName="InvestedHistoryID" />
+                <ScalarProperty Name="InvestorProjectID" ColumnName="InvestorProjectID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="InvestDate" ColumnName="InvestDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="z_InvestorProject">
+            <EntityTypeMapping TypeName="Umbraco2Model.z_InvestorProject">
+              <MappingFragment StoreEntitySet="z_InvestorProject">
+                <ScalarProperty Name="InvestorProjectID" ColumnName="InvestorProjectID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectAddress" ColumnName="ProjectAddress" />
+                <ScalarProperty Name="ProjectZip" ColumnName="ProjectZip" />
+                <ScalarProperty Name="ProjectCity" ColumnName="ProjectCity" />
+                <ScalarProperty Name="ProjectStart" ColumnName="ProjectStart" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="BankNumber" ColumnName="BankNumber" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="z_Person">
+            <EntityTypeMapping TypeName="Umbraco2Model.z_Person">
+              <MappingFragment StoreEntitySet="z_Person">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="z_SolarPanelInfo">
+            <EntityTypeMapping TypeName="Umbraco2Model.z_SolarPanelInfo">
+              <MappingFragment StoreEntitySet="z_SolarPanelInfo">
+                <ScalarProperty Name="SolarPanelInfoID" ColumnName="SolarPanelInfoID" />
+                <ScalarProperty Name="Power" ColumnName="Power" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="z_SolarPanelInfo_InvestorProject" TypeName="Umbraco2Model.z_SolarPanelInfo_InvestorProject" StoreEntitySet="z_SolarPanelInfo_InvestorProject">
+            <EndProperty Name="z_InvestorProject">
+              <ScalarProperty Name="InvestorProjectID" ColumnName="InvestorProjectID" />
+            </EndProperty>
+            <EndProperty Name="z_SolarPanelInfo">
+              <ScalarProperty Name="SolarPanelInfoID" ColumnName="SolarPanelInfoID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="umbracoUsers">
+            <EntityTypeMapping TypeName="Umbraco2Model.umbracoUser">
+              <MappingFragment StoreEntitySet="umbracoUser">
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+                <ScalarProperty Name="createDate" ColumnName="createDate" />
+                <ScalarProperty Name="invitedDate" ColumnName="invitedDate" />
+                <ScalarProperty Name="emailConfirmedDate" ColumnName="emailConfirmedDate" />
+                <ScalarProperty Name="lastLoginDate" ColumnName="lastLoginDate" />
+                <ScalarProperty Name="lastPasswordChangeDate" ColumnName="lastPasswordChangeDate" />
+                <ScalarProperty Name="lastLockoutDate" ColumnName="lastLockoutDate" />
+                <ScalarProperty Name="failedLoginAttempts" ColumnName="failedLoginAttempts" />
+                <ScalarProperty Name="securityStampToken" ColumnName="securityStampToken" />
+                <ScalarProperty Name="userLanguage" ColumnName="userLanguage" />
+                <ScalarProperty Name="userEmail" ColumnName="userEmail" />
+                <ScalarProperty Name="passwordConfig" ColumnName="passwordConfig" />
+                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+                <ScalarProperty Name="userLogin" ColumnName="userLogin" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userNoConsole" ColumnName="userNoConsole" />
+                <ScalarProperty Name="userDisabled" ColumnName="userDisabled" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="z_investeraDashboardPermission">
+            <EntityTypeMapping TypeName="Umbraco2Model.z_investeraDashboardPermission">
+              <MappingFragment StoreEntitySet="z_investeraDashboardPermission">
+                <ScalarProperty Name="investeraDashBoardUser" ColumnName="investeraDashBoardUser" />
+                <ScalarProperty Name="umbracoUserId" ColumnName="umbracoUserId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

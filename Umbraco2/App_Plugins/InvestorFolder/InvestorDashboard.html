@@ -1,0 +1,11 @@
+﻿<div  class="investorDashboard" ng-controller="InvestorDashboardController">
+    <h3>Investors</h3>
+    <table class="table table-condensed table-hover">
+        <th>Namn</th>
+        <th>Email</th>
+        <th>Antal projekt</th>
+        <tr class="nm_row" ng-repeat="p in persons">
+            <td class="nm_data">{{p.FirstName}}&nbsp;{{p.LastName}}</td><td class="email_data"><span>{{p.Email}}</span></td><td class="nbr_proj">{{p.NbrOf}}</td>
+        </tr>
+    </table>
+</div>

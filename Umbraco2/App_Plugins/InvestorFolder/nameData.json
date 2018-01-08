@@ -1,0 +1,16 @@
+﻿[
+  {
+    "Firstname": "Gunnar",
+    "Lastname": "Svensson",
+    "Address": "Solarisvägen 345",
+    "Zip": "70332",
+    "City": "Malmö"
+  },
+  {
+    "Firstname": "Norbert",
+    "Lastname": "Heribertsson",
+    "Address": "Stjärnstadsvägen 111",
+    "Zip": "29971",
+    "City": "Lund"
+  }
+]

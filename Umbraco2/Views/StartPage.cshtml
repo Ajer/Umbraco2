@@ -1,0 +1,48 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+    Layout = "Master.cshtml";
+    var clickImage1 = Model.GetPropertyValue<IPublishedContent>("link_with_Image1");   //@Umbraco.Field("clickable_Image_Link1")
+    var url1 = clickImage1.GetPropertyValue<string>("url");
+    var image1 = clickImage1.GetPropertyValue<IPublishedContent>("image");
+    var imgSrc1 = image1.Url;
+    var descript1 = clickImage1.GetPropertyValue<string>("linkDescription");
+
+    var clickImage2 = Model.GetPropertyValue<IPublishedContent>("link_with_Image2");   //@Umbraco.Field("clickable_Image_Link1")
+    var url2 = clickImage2.GetPropertyValue<string>("url");
+    var image2 = clickImage2.GetPropertyValue<IPublishedContent>("image");
+    var imgSrc2 = image2.Url;
+    var descript2 = clickImage2.GetPropertyValue<string>("linkDescription");
+
+    var clickImage3 = Model.GetPropertyValue<IPublishedContent>("link_with_Image3");   //@Umbraco.Field("clickable_Image_Link1")
+    var url3 = clickImage3.GetPropertyValue<string>("url");
+    var image3 = clickImage3.GetPropertyValue<IPublishedContent>("image");
+    var imgSrc3 = image3.Url;
+    var descript3 = clickImage3.GetPropertyValue<string>("linkDescription");
+
+    var loginString = Model.GetPropertyValue("startPageLoginString");
+    var loginUrl = Model.GetPropertyValue("startPageLoginUrl");
+}
+@*<div class="header">
+    <div class="header1">@Umbraco.Field("headerstring")
+        <img src="@logoUrl" />
+    </div>
+</div>*@
+
+<h2 class="special">@Umbraco.Field("editableDescription")</h2>
+<div>
+    <a id="loginLink" href="@loginUrl">@loginString</a>
+</div>
+<div class="puffs_startpage">
+    <a id="a1" href="@url1">
+      <div>@descript1<img src="@imgSrc1" /></div>  
+    </a>
+
+    <a id="a2" href="@url2">
+        <div>@descript2<img src="@imgSrc2" /></div>
+    </a>
+    
+    <a id="a3" href="@url3">
+        <div>@descript3<img src="@imgSrc3" /></div>  
+    </a>
+</div>
+

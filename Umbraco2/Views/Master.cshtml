@@ -1,0 +1,28 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+    Layout = null;
+    var hl = Model.GetPropertyValue<IPublishedContent>("headerLogo");
+    
+    //var logoUrl = hl.Url;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="Content/bootstrap.css" type="text/css" rel="stylesheet" />
+    <link href="Template/css/site.css" type="text/css" rel="stylesheet"/>
+    <script src="Scripts/bootstrap.js"></script>
+</head>
+<body>
+  <div class="header">
+    <div class="header1">@Umbraco.Field("headerString")
+     @*<img src="@logoUrl" />*@
+    </div>
+  </div>
+  <div>
+    @RenderBody()
+  </div>
+</body>
+</html>

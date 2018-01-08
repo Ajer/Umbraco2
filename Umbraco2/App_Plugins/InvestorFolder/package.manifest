@@ -1,0 +1,9 @@
+{
+    "javascript":[
+        /*javascript files listed here*/
+		"~/app_plugins/InvestorFolder/investordashboard.controller.js"
+    ],
+    "css": [
+        "~/App_Plugins/InvestorFolder/investordashboard.css"
+    ]
+}
