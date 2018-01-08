@@ -44,6 +44,7 @@ namespace Umbraco2.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+
             }
 
             if (id != investedHistory.InvestedHistoryID)
