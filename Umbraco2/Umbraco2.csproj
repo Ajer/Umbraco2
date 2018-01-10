@@ -516,11 +516,27 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RegisterEvents.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\InvestorInvestedHistoryController.cs" />
     <Compile Include="Controllers\InvestorPersonController.cs" />
     <Compile Include="CustomUmbracoApplication\CustomUmbracoApplication.cs" />
     <Compile Include="CustomWebBootManager\CustomWebBootManager.cs" />
+    <Compile Include="Data\Booking.cs" />
+    <Compile Include="Data\Cabin.cs" />
+    <Compile Include="Data\Currency.cs" />
+    <Compile Include="Data\Guest.cs" />
+    <Compile Include="Data\Cabins.cs" />
+    <Compile Include="Data\Guests.cs" />
+    <Compile Include="Data\PriceList.cs" />
+    <Compile Include="Data\PriceListCurrency.cs" />
+    <Compile Include="Identity\Role.cs" />
+    <Compile Include="Identity\UserRoleManager.cs" />
+    <Compile Include="Identity\User.cs" />
+    <Compile Include="Identity\UsersManager.cs" />
+    <Compile Include="Identity\UsersDBContext.cs" />
+    <Compile Include="Identity\UsersDBInitializer.cs" />
     <Compile Include="Models\InvestorModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
