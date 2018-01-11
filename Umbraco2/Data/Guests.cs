@@ -11,18 +11,22 @@ namespace Umbraco2.Data
     {
         public static Guest CreateGuest(string firstname,string lastname,string email)
         {
-            var db = ApplicationContext.Current.DatabaseContext.Database;
-
-            var g = new Guest
+            if (!ExistGuest(email))
             {
-                FirstName = firstname,
-                LastName = lastname,
-                Email = email
-            };
+                var db = ApplicationContext.Current.DatabaseContext.Database;
 
-            db.Insert(g);
+                var g = new Guest
+                {
+                    FirstName = firstname,
+                    LastName = lastname,
+                    Email = email
+                };
 
-            return g;
+                db.Insert(g);
+
+                return g;
+            }
+            return null;
         }
 
         public Guest GetGuest(int id)
@@ -45,6 +49,7 @@ namespace Umbraco2.Data
             var q = db.Fetch<Guest>(new Sql()
                 .Select("*")
                 .From("Guest").Where("Email=@0",email));
+
 
             if (q != null)
             {
@@ -69,6 +74,15 @@ namespace Umbraco2.Data
              //var g = db.Page<Guest>(page,itemsPerPage,sql);
 
              return sql;
+        }
+
+        public static bool ExistGuest(string email)
+        {
+            var db = ApplicationContext.Current.DatabaseContext.Database;
+            var sql = db.Fetch<Guest>(new Sql()
+                .Select("Id")
+                .From("Guest").Where("Email=@0",email));
+            return (sql.Count != 0);
         }
     }
 }

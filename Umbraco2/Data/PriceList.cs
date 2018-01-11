@@ -26,8 +26,5 @@ namespace Umbraco2.Data
 
         [Column("CabinId")]
         public int CabinId { get; set; }
-
-        [Column("GuestId")]
-        public int GuestId { get; set; }
     }
 }

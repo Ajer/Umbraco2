@@ -15,8 +15,8 @@ namespace Umbraco2.Data
         [Column("PriceListId")]
         public int PriceListId { get; set; }
 
-        [Column("CabinId")]
-        public int CabinId { get; set; }
+        [Column("CurrencyId")]
+        public int CurrencyId { get; set; }
 
     }
 }

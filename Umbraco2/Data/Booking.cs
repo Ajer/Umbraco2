@@ -20,8 +20,10 @@ namespace Umbraco2.Data
         [Column("DateStart")]
         public DateTime DateStart{ get; set; }
 
+
         [Column("DateEnd")]
         public DateTime DateEnd { get; set; }
+
 
         [Column("GuestId")]
         public int GuestId { get; set; }
@@ -29,6 +31,10 @@ namespace Umbraco2.Data
 
         [Column("CabinId")]
         public int CabinId { get; set; }
+
+
+        [Column("RegisteredDate")]
+        public DateTime RegisteredDate { get; set; }
 
         //[NullSetting(NullSetting = NullSettings.Null)]
         //[SpecialDbType(SpecialDbTypes.NTEXT)]     

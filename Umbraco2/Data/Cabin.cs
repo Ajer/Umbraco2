@@ -20,5 +20,8 @@ namespace Umbraco2.Data
 
         [Column("Address")]
         public string Address { get; set; }
+
+        [Column("Description")]
+        public string Description { get; set; }
     }
 }

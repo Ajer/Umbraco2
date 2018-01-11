@@ -524,10 +524,14 @@
     <Compile Include="CustomUmbracoApplication\CustomUmbracoApplication.cs" />
     <Compile Include="CustomWebBootManager\CustomWebBootManager.cs" />
     <Compile Include="Data\Booking.cs" />
+    <Compile Include="Data\Bookings.cs" />
     <Compile Include="Data\Cabin.cs" />
+    <Compile Include="Data\PriceListCurrencies.cs" />
+    <Compile Include="Data\Currencies.cs" />
     <Compile Include="Data\Currency.cs" />
     <Compile Include="Data\Guest.cs" />
     <Compile Include="Data\Cabins.cs" />
+    <Compile Include="Data\PriceLists.cs" />
     <Compile Include="Data\Guests.cs" />
     <Compile Include="Data\PriceList.cs" />
     <Compile Include="Data\PriceListCurrency.cs" />
