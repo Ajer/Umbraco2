@@ -15,7 +15,12 @@ namespace Umbraco2.Data
         [PrimaryKeyColumn(AutoIncrement = true)]
         public int Id { get; set; }
 
+
         [Column("Name")]
         public string Name { get; set; }
+        
+        [Column("IsoCode")]
+        public string IsoCode{ get; set; }
+        
     }
 }
