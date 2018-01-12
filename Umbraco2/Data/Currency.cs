@@ -17,6 +17,10 @@ namespace Umbraco2.Data
 
 
         [Column("Name")]
-        public int Name { get; set; }
+        public string Name { get; set; }
+        
+        [Column("IsoCode")]
+        public string IsoCode{ get; set; }
+        
     }
 }
