@@ -72,6 +72,7 @@ namespace Umbraco2
                     Bookings.CreateBooking(new DateTime(2017, 8, 9, 10, 0, 0), new DateTime(2017, 8, 23, 10, 0, 0), 1, 4);
                     Bookings.CreateBooking(new DateTime(2017, 4, 10, 10, 0, 0), new DateTime(2017, 4, 15, 10, 0, 0), 1, 5);
 
+
                }
                 catch (Exception e)
                 {

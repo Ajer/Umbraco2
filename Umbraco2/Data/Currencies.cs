@@ -9,15 +9,16 @@ namespace Umbraco2.Data
 {
     public class Currencies
     {
-        public static Currency CreateCurrencies(string name)
+        public static Currency CreateCurrencies(string name,string isoCode)
         {
-            if (!ExistCurrency(name))
+            if (!ExistCurrency(name,isoCode))
             {
                 var db = ApplicationContext.Current.DatabaseContext.Database;
 
                 var c = new Currency
                 {
-                    Name = name
+                    Name = name,
+                    IsoCode = isoCode
                 };
 
                 db.Insert(c);
@@ -53,12 +54,12 @@ namespace Umbraco2.Data
         }
 
 
-        public static bool ExistCurrency(string name)
+        public static bool ExistCurrency(string name,string isoCode)
         {
             var db = ApplicationContext.Current.DatabaseContext.Database;
             var pl = db.Fetch<Guest>(new Sql()
                 .Select("Id")
-                .From("Currency").Where("Name=@0",name));
+                .From("Currency").Where("Name=@0 and IsoCode=@1",name,isoCode));
 
             return (pl.Count != 0);
         }

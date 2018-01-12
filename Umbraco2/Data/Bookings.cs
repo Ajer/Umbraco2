@@ -76,28 +76,23 @@ namespace Umbraco2.Data
             return sql;
         }
 
-        public  List<Booking> GetAllBookingsForGuest(string GuestEmail)
+        public  List<Booking> GetAllBookingsForGuest(string guestEmail)
         {
-            //GuestEmail = GuestEmail.Insert(GuestEmail.IndexOf("@") + 1, "@");
-
-
-            //var db = ApplicationContext.Current.DatabaseContext.Database;
-            //var sql = "select * from Booking b inner join Guest g on b.GuestId=g.Id and g.Email='" + GuestEmail + "'";
-            //var q = db.Query<Booking>(sql);   // return IEnumerable<Booking>
+            //guestEmail = guestEmail.Insert(guestEmail.IndexOf("@") + 1, "@");
 
             var db = ApplicationContext.Current.DatabaseContext.Database;
             var sql = "select * from Booking b inner join Guest g on b.GuestId=g.Id and g.Email=@0";
-            var q = db.Query<Booking>(sql,GuestEmail);
+            var q = db.Query<Booking>(sql, guestEmail);
 
             return q.ToList();
 
-
+            //Equivalent:
             //var sql = Sql.Builder
             //    .Select("*")
             //    .From("Booking b")
-            //    .InnerJoin("Guest g").On("b.GuestId = g.Id and g.email=@0", GuestEmail);
-
-            //return db.Fetch<Booking, Guest>((d,c)=>{d.Guest=c; return c},sql);
+            //    .InnerJoin("Guest g").On("b.GuestId = g.Id and g.email=@0", guestEmail);
+            //var q = db.Query<Booking>(sql);
+            //return q;   // returntype: IEnumerable<Booking>  ,  q.ToList()
         }
 
         public static bool ExistBooking(DateTime startDateTime, DateTime endDateTime, int guestId, int cabinId)
