@@ -1,0 +1,44 @@
+﻿
+@using System.Web.Mvc.Html
+@using System.Web.UI.WebControls
+@using ClientDependency.Core.Mvc
+@using Umbraco.Web
+@using Umbraco.Web.Models
+@using Umbraco.Web.Controllers
+@using Umbraco2.Controllers
+
+@model Umbraco2.Models.LoginModel 
+@{
+    //var loginModel = new LoginModel();
+    
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+
+
+    Html.RequiresJs("/umbraco_client/ui/jquery.js");
+    Html.RequiresJs("/umbraco_client/Application/JQuery/jquery.validate.min.js");
+    Html.RequiresJs("/umbraco_client/Application/JQuery/jquery.validate.unobtrusive.min.js");
+}
+
+@* NOTE: This RenderJsHere code should be put on your main template page where the rest of your script tags are placed *@
+@Html.RenderJsHere()
+
+@using (Html.BeginUmbracoForm<MemberSurfaceController>("Login",null,new {id="loginForm"},FormMethod.Post))
+{
+       @Html.AntiForgeryToken()
+    <legend>Login</legend>
+        
+        @Html.ValidationSummary("LoginModel", true)
+
+        @Html.LabelFor(m => m.Username)
+        @Html.TextBoxFor(m => m.Username)
+        @Html.ValidationMessageFor(m => m.Username)
+        <br />
+
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+        <br />
+
+    <input type="submit" value="Login"/>  
+}

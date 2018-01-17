@@ -479,6 +479,8 @@
     <Content Include="Views\Our_Aircrafts.cshtml" />
     <Content Include="Views\News.cshtml" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
+    <Content Include="Views\Partials\LoginPartial.cshtml" />
+    <Content Include="Views\Private_Content.cshtml" />
     <Content Include="Views\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -513,7 +515,9 @@
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Template\css\site.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -521,6 +525,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\InvestorInvestedHistoryController.cs" />
     <Compile Include="Controllers\InvestorPersonController.cs" />
+    <Compile Include="Controllers\MemberSurfaceController.cs" />
     <Compile Include="CustomUmbracoApplication\CustomUmbracoApplication.cs" />
     <Compile Include="CustomWebBootManager\CustomWebBootManager.cs" />
     <Compile Include="Data\Booking.cs" />
@@ -556,6 +561,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InvestorModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\QueryViewModels\QueryViewModels.cs" />
     <Compile Include="Models\umbracoUser.cs">
       <DependentUpon>InvestorModel.tt</DependentUpon>

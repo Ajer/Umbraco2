@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -7,17 +8,25 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using Umbraco.Core;
-using Umbraco.Core.Models.Membership;
 using Umbraco.Core.Security;
 using Umbraco.Web.Mvc;
 using Umbraco.Web.WebApi;
 using Umbraco2.Models;
 using Umbraco2.Models.QueryViewModels;
+using IUser = Umbraco.Core.Models.Membership.IUser;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+
 
 
 namespace Umbraco2.Controllers
@@ -46,35 +55,47 @@ namespace Umbraco2.Controllers
                 {
                     var j1 = Request.RequestUri;
                     var k1 = System.Web.HttpContext.Current.Request.UrlReferrer;
+                    if (k1 == null)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.NotFound);
+                    }
+                    else
+                    {
+                        return null;
+                    }
 
-                    throw new HttpResponseException(HttpStatusCode.NotFound);
-                    
-                   
                 }
-
-                // var j = Request.RequestUri;
-                //var k = System.Web.HttpContext.Current.Request.UrlReferrer;
-                //var h = new JsonSerializerSettings();
-
-                // HttpContext.Current.Response.ContentType = "application/json";
-
-
-                var res = new List<GetNbrOfQVM>();
-
-                foreach (var p in db.z_Person)
+                else
                 {
-                    GetNbrOfQVM gbnr = new GetNbrOfQVM();
-                    gbnr.Id = p.PersonID;
-                    gbnr.FirstName = p.FirstName;
-                    gbnr.LastName = p.LastName;
-                    gbnr.Email = p.Email;
+                    // var j = Request.RequestUri;
+                    //var k = System.Web.HttpContext.Current.Request.UrlReferrer;
+                    //var h = new JsonSerializerSettings();
 
-                    gbnr.NbrOf = GetNbrOfInvest(gbnr.Id);
+                    // HttpContext.Current.Response.ContentType = "application/json";
 
-                    res.Add(gbnr);
+                    var k1 = System.Web.HttpContext.Current.Request.UrlReferrer;
+                    if (k1 == null)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.NotFound);
+                    }
+
+                    var res = new List<GetNbrOfQVM>();
+
+                    foreach (var p in db.z_Person)
+                    {
+                        GetNbrOfQVM gbnr = new GetNbrOfQVM();
+                        gbnr.Id = p.PersonID;
+                        gbnr.FirstName = p.FirstName;
+                        gbnr.LastName = p.LastName;
+                        gbnr.Email = p.Email;
+
+                        gbnr.NbrOf = GetNbrOfInvest(gbnr.Id);
+
+                        res.Add(gbnr);
+                    }
+
+                    return Json(res); //Json(db.z_Person);
                 }
-
-                return Json(res); //Json(db.z_Person);
             }
             else
             {
@@ -230,6 +251,28 @@ namespace Umbraco2.Controllers
             return query;
         }
 
+
+        //public async Task<ActionResult> SignIn()
+        //{
+        //    var c = new System.Web.Mvc.Controller();
+        //    IAuthenticationManager authMgr = H.GetOwinContext().Authentication;
+        //    StoreUserManager sum = HttpContext.GetOwinContext().GetUserManager<StoreUserManager>();
+
+        //    StoreUser user = await sum.FindAsync("Admin", "secret");
+        //    authMgr.SignIn(await sum.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie));
+
+        //    return RedirectToAction("Index");
+        //}
+
+
+
+        //public ActionResult SignOut()
+        //{
+
+        //    HttpContext.GetOwinContext().Authentication.SignOut();
+
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -43,12 +43,18 @@ app.controller("InvestorDashboardController",['$scope', '$http','operations',
 
             operations.ReadAll(url).success(function (data)
             {
-
-                $scope.persons = data;
+                if (data != null) {
+                    $scope.persons = data;
+                    $scope.ok = true;
+                }
+                else {
+                    $scope.ok = false;
+                }
 
             }).error(function () {
 
-                alert('Error loadData');
+                $scope.ok = false;
+                //alert('Error loadData');
 
            });
 

@@ -1,0 +1,12 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = "Master.cshtml";
+}
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h3>Welcome @Members.GetCurrentMemberProfileModel().UserName !</h3>
+    <h3> @Html.ActionLink("Logga ut", "LogOut", "MemberSurface", null, new { @class = "btn btn-success logout " })</h3>
+
+}

@@ -14,6 +14,8 @@
     var descript2 = clickImage2.GetPropertyValue<string>("linkDescription");
 
     var clickImage3 = Model.GetPropertyValue<IPublishedContent>("link_with_Image3");   //@Umbraco.Field("clickable_Image_Link1")
+
+
     var url3 = clickImage3.GetPropertyValue<string>("url");
     var image3 = clickImage3.GetPropertyValue<IPublishedContent>("image");
     var imgSrc3 = image3.Url;
@@ -21,6 +23,9 @@
 
     var loginString = Model.GetPropertyValue("startPageLoginString");
     var loginUrl = Model.GetPropertyValue("startPageLoginUrl");
+
+
+
 }
 @*<div class="header">
     <div class="header1">@Umbraco.Field("headerstring")
